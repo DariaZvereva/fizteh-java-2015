@@ -70,6 +70,7 @@ public class TwitterStream {
     public static final long ELEVEN = 11;
     public static final long FIVE = 5;
     public static final long FIVTEEN = 15;
+    public static final long PAUSE = 1000;
 
 
 
@@ -131,6 +132,18 @@ public class TwitterStream {
         return " дней ";
     }
 
+    public static String strRetweet(long retweets) {
+        if (retweets % TEN == 1 && retweets != ELEVEN) {
+            return " ретвит)";
+        }
+        if (retweets % TEN > 1 && retweets % TEN < FIVE
+                && (retweets < FIVE || retweets > FIVTEEN)) {
+            return " ретвита)";
+        }
+        return " ретвитов)";
+    }
+
+
     public static boolean today(Status status) {
         Date date = new Date();
         long currentTime = date.getTime();
@@ -178,17 +191,19 @@ public class TwitterStream {
     public static void printTweet(Status status, boolean hideRetweets) {
         if (status.isRetweet()) {
             if (!hideRetweets) {
+                printTime(status);
                 System.out.println("@" + status.getUser().getName()
                         + " ретвитнул: @"
                         + status.getRetweetedStatus().getUser().getName()
                         + ": " + status.getRetweetedStatus().getText());
             }
         } else {
+            printTime(status);
             System.out.println("@" + status.getUser().getName()
                     + ": " + status.getText() + " (" + status.getRetweetCount()
-                    + " ретвитов)");
+                    + strRetweet(status.getRetweetCount()));
+            System.out.println();
         }
-        System.out.println();
     }
     //Twitter Stream
     public static void streamPrint(Settings settings) {
@@ -199,6 +214,11 @@ public class TwitterStream {
         StatusListener listener = new StatusListener() {
             @Override
             public void onStatus(Status status) {
+                try {
+                    Thread.sleep(PAUSE);
+                } catch (InterruptedException e) {
+                    System.out.print(e.getMessage());
+                }
                 printTweet(status, settings.isRetweetsHidden());
             }
             @Override
@@ -239,7 +259,6 @@ public class TwitterStream {
             result = twitter.search(query);
             List<Status> tweets = result.getTweets();
                 for (Status tweet : tweets) {
-                    printTime(tweet);
                     printTweet(tweet, settings.isRetweetsHidden());
                     limit--;
                     counter++;
