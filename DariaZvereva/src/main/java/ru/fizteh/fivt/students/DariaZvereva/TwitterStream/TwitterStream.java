@@ -8,6 +8,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import twitter4j.*;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -45,7 +46,7 @@ class Settings {
         return stream;
     }
 
-    public Integer getLimit() {
+    public int getLimit() {
         return limit;
     }
 
@@ -73,9 +74,8 @@ public class TwitterStream {
     public static final long PAUSE = 1000;
 
 
-
-
-    public static void main(String[] args) {
+    public static void main(String[] args)
+            throws TwitterException, IOException {
 
         Settings settings = new Settings();
         JCommander cmd = null;
@@ -95,13 +95,11 @@ public class TwitterStream {
         } else {
             print(settings);
         }
-
-
     }
 
     public static String strMin(long min) {
         if (min % TEN == 1 && min != ELEVEN) {
-            return " миниуту ";
+            return " минуту ";
         }
         if (min % TEN > 1 && min % TEN < FIVE && (min < FIVE
                 || min > FIVTEEN)) {
@@ -133,14 +131,17 @@ public class TwitterStream {
     }
 
     public static String strRetweet(long retweets) {
+        if (retweets == 0) {
+            return "";
+        }
         if (retweets % TEN == 1 && retweets != ELEVEN) {
-            return " ретвит)";
+            return  " (" + retweets + " ретвит)";
         }
         if (retweets % TEN > 1 && retweets % TEN < FIVE
                 && (retweets < FIVE || retweets > FIVTEEN)) {
-            return " ретвита)";
+            return  " (" + retweets + " ретвита)";
         }
-        return " ретвитов)";
+        return " (" + retweets + " ретвитов)";
     }
 
 
@@ -200,18 +201,18 @@ public class TwitterStream {
         } else {
             printTime(status);
             System.out.println("@" + status.getUser().getName()
-                    + ": " + status.getText() + " (" + status.getRetweetCount()
+                    + ": " + status.getText()
                     + strRetweet(status.getRetweetCount()));
             System.out.println();
         }
     }
     //Twitter Stream
-    public static void streamPrint(Settings settings) {
+    public static void streamPrint(Settings settings)
+            throws TwitterException, IOException {
 
         twitter4j.TwitterStream twitterStream;
         twitterStream = new TwitterStreamFactory().getInstance();
-
-        StatusListener listener = new StatusListener() {
+        StatusAdapter listener = new StatusAdapter() {
             @Override
             public void onStatus(Status status) {
                 try {
@@ -221,21 +222,8 @@ public class TwitterStream {
                 }
                 printTweet(status, settings.isRetweetsHidden());
             }
-            @Override
-            public void onDeletionNotice(StatusDeletionNotice
-                                                 statusDeletionNotice) { }
-            @Override
-            public void onTrackLimitationNotice(int i) { }
-            @Override
-            public void onScrubGeo(long l, long l1) { }
-            @Override
-            public void onStallWarning(StallWarning stallWarning) { }
-            @Override
-            public void onException(Exception e) { }
         };
-
         twitterStream.addListener(listener);
-        twitterStream.sample();
         FilterQuery filter;
         //set filter
         String[] track = new String[1];
@@ -251,32 +239,37 @@ public class TwitterStream {
     public static void print(Settings settings) {
         Twitter twitter = new TwitterFactory().getInstance();
         int limit = settings.getLimit();
-        Integer counter = 0;
+        int counter = 0;
         try {
             Query query = new Query(settings.getQuery());
             QueryResult result;
             do {
-            result = twitter.search(query);
-            List<Status> tweets = result.getTweets();
-                for (Status tweet : tweets) {
-                    printTweet(tweet, settings.isRetweetsHidden());
-                    limit--;
-                    counter++;
-                    if (limit == 0) {
-                        break;
+                result = twitter.search(query);
+                List<Status> tweets = result.getTweets();
+                    for (Status tweet : tweets) {
+                        Thread.sleep(PAUSE);
+                        printTweet(tweet, settings.isRetweetsHidden());
+                        limit--;
+                        counter++;
+                        if (limit == 0) {
+                            break;
+                        }
                     }
-                }
-                query = result.nextQuery();
+                    query = result.nextQuery();
             } while (query != null && limit > 0);
-        } catch (TwitterException e) {
+        } catch (TwitterException te) {
+            te.printStackTrace();
+            System.out.println("Failed to search tweets: " + te.getMessage());
+            System.exit(-1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             System.out.println(e.getMessage());
             System.exit(-1);
         }
         if (counter == 0) {
             System.out.println("По данному запросу не найдено результатов");
-            System.exit(-1);
+            System.exit(0);
         }
     }
-
 
 }
