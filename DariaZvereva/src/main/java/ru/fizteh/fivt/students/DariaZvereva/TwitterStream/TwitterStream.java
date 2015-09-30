@@ -62,15 +62,13 @@ class Settings {
 
 public class TwitterStream {
 
-    public static final String ANSI_WHITE = "\u001B[0m";
-    public static final String ANSI_BLUE =  "\u001b[34m";
     public static final long MIN = 1000 * 60;
     public static final long HOUR = 1000 * 60 * 60;
     public static final long DAY = 1000 * 60 * 60 * 24;
     public static final long TEN = 10;
     public static final long ELEVEN = 11;
     public static final long FIVE = 5;
-    public static final long FIVTEEN = 15;
+    public static final long FIFTEEN = 15;
     public static final long PAUSE = 1000;
 
 
@@ -102,7 +100,7 @@ public class TwitterStream {
             return " минуту ";
         }
         if (min % TEN > 1 && min % TEN < FIVE && (min < FIVE
-                || min > FIVTEEN)) {
+                || min > FIFTEEN)) {
             return " минуты ";
         }
         return " минут ";
@@ -113,7 +111,7 @@ public class TwitterStream {
             return " час ";
         }
         if (hour % TEN > 1 && hour % TEN < FIVE
-                && (hour < FIVE || hour > FIVTEEN)) {
+                && (hour < FIVE || hour > FIFTEEN)) {
             return " часа ";
         }
         return " часов ";
@@ -124,7 +122,7 @@ public class TwitterStream {
             return " день ";
         }
         if (day % TEN > 1 && day % TEN < FIVE
-                && (day < FIVE || day > FIVTEEN)) {
+                && (day < FIVE || day > FIFTEEN)) {
             return " дня ";
         }
         return " дней ";
@@ -138,7 +136,7 @@ public class TwitterStream {
             return  " (" + retweets + " ретвит)";
         }
         if (retweets % TEN > 1 && retweets % TEN < FIVE
-                && (retweets < FIVE || retweets > FIVTEEN)) {
+                && (retweets < FIVE || retweets > FIFTEEN)) {
             return  " (" + retweets + " ретвита)";
         }
         return " (" + retweets + " ретвитов)";
