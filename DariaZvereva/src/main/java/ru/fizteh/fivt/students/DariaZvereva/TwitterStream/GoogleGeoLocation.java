@@ -16,7 +16,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 
-class GoogleGeoLocation {
+public class GoogleGeoLocation {
 
     private static final double RADIUS_OF_EARTH = 6371;
 

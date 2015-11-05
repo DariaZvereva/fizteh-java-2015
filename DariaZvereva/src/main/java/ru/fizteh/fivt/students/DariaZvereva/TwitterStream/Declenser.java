@@ -21,60 +21,9 @@ public class Declenser {
         if (number % TEN == 1 && number % HUNDRED != ELEVEN) {
             return 1;
         }
-        if (number % TEN > 1 && number % TEN < FIVE && (number < FIVE
-                || number > FIFTEEN)) {
+        if (number % TEN > 1 && number % TEN < FIVE && (number % HUNDRED < FIVE || number % HUNDRED > FIFTEEN)) {
             return 2;
         }
         return 3;
     }
-/*
-
-    public static String strMin(long min) {
-        if (min % TEN == 1 && min != ELEVEN) {
-            return " минуту ";
-        }
-        if (min % TEN > 1 && min % TEN < FIVE && (min < FIVE
-                || min > FIFTEEN)) {
-            return " минуты ";
-        }
-        return " минут ";
-    }
-
-
-    public static String strHour(long hour) {
-        if (hour % TEN == 1 && hour % HUNDRED != ELEVEN) {
-            return " час ";
-        }
-        if (hour % TEN > 1 && hour % TEN < FIVE
-                && (hour < FIVE || hour > FIFTEEN)) {
-            return " часа ";
-        }
-        return " часов ";
-    }
-
-    public static String strDay(long day) {
-        if (day % TEN == 1 && day != ELEVEN) {
-            return " день ";
-        }
-        if (day % TEN > 1 && day % TEN < FIVE
-                && (day < FIVE || day > FIFTEEN)) {
-            return " дня ";
-        }
-        return " дней ";
-    }
-
-    public static String strRetweet(long retweets) {
-        if (retweets == 0) {
-            return "";
-        }
-        if (retweets % TEN == 1 && retweets != ELEVEN) {
-            return " (" + retweets + " ретвит)";
-        }
-        if (retweets % TEN > 1 && retweets % TEN < FIVE
-                && (retweets < FIVE || retweets > FIFTEEN)) {
-            return " (" + retweets + " ретвита)";
-        }
-        return " (" + retweets + " ретвитов)";
-    }*/
-
 }
