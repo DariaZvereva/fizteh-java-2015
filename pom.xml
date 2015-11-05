@@ -20,29 +20,7 @@
     </properties>
 
     <modules>
-        <module>egiby</module>
-        <module>akormushin</module>
-        <module>xmanatee</module>
-        <module>mamaevads</module>
-        <module>cache-nez</module>
-        <module>ocksumoron</module>
-        <module>zerts</module>
-        <module>thefacetakt</module>
-        <module>riazanovskiy</module>
-        <module>andrewgark</module>
-        <module>fminkin</module>
-        <module>sergmiller</module>
-        <module>zakharovas</module>
-        <module>zemen</module>
-		<module>w4r10ck1337</module>
-        <!--Add you module here-->
-        <module>ladyae</module>
-        <!--Add you module here-->
-<<<<<<< HEAD
-    <module>DariaZvereva</module>
-=======
-    <module>preidman</module>
->>>>>>> f37c201feeb418d431e95cf4e60f20b4d4312e5d
+	<module>DariaZvereva</module>
   </modules>
 
     <dependencies>
