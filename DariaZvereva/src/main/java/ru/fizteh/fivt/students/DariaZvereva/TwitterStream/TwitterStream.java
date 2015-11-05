@@ -59,21 +59,24 @@ public class TwitterStream {
             System.out.print("только что");
         } else {
             if (ChronoUnit.HOURS.between(tweetTime, currentTime) < 1) {
-                System.out.print(ChronoUnit.MINUTES.between(tweetTime, currentTime)
-                        + timeDeclension.strMin(ChronoUnit.MINUTES.between(tweetTime, currentTime))
-                        + "назад");
+                System.out.print(new StringBuilder().append(ChronoUnit.MINUTES.between(tweetTime, currentTime))
+                        .append(timeDeclension.MINUTES[timeDeclension.strForm(
+                                ChronoUnit.MINUTES.between(tweetTime, currentTime))])
+                        .append("назад").toString());
             } else {
                 if (ChronoUnit.DAYS.between(tweetTime, currentTime) < 1) {
-                    System.out.print(ChronoUnit.HOURS.between(tweetTime, currentTime)
-                            + timeDeclension.strHour(ChronoUnit.HOURS.between(tweetTime, currentTime))
-                            + "назад");
+                    System.out.print(new StringBuilder().append(ChronoUnit.HOURS.between(tweetTime, currentTime))
+                            .append(timeDeclension.HOURS[timeDeclension.strForm(
+                                    ChronoUnit.HOURS.between(tweetTime, currentTime))])
+                            .append("назад").toString());
                 } else {
                     if (ChronoUnit.DAYS.between(tweetTime, currentTime) == 1) {
                         System.out.print("вчера");
                     } else {
-                        System.out.print(ChronoUnit.DAYS.between(tweetTime, currentTime)
-                                + timeDeclension.strDay(ChronoUnit.DAYS.between(tweetTime, currentTime))
-                                + "назад");
+                        System.out.print(new StringBuilder().append(ChronoUnit.DAYS.between(tweetTime, currentTime))
+                                .append(timeDeclension.DAYS[timeDeclension.strForm(
+                                        ChronoUnit.DAYS.between(tweetTime, currentTime))])
+                                .append("назад").toString());
                     }
                 }
             }
@@ -83,18 +86,17 @@ public class TwitterStream {
 
     public static void printTweet(Status status) {
         Declenser retweetDeclension = new Declenser();
-        System.out.println("@" + status.getUser().getName()
-                + ": " + status.getText()
-                + retweetDeclension.strRetweet(status.getRetweetCount()));
+        System.out.println(new StringBuilder().append("@").append(status.getUser().getName()).append(": ")
+                .append(status.getText()).append(retweetDeclension.RETWEETS[retweetDeclension.strForm(
+                        status.getRetweetCount())]).toString());
         System.out.println();
     }
 
     public static void printRetweet(Status status) {
         printTime(status);
-        System.out.println("@" + status.getUser().getName()
-                + " ретвитнул: @"
-                + status.getRetweetedStatus().getUser().getName()
-                + ": " + status.getRetweetedStatus().getText());
+        System.out.println(new StringBuilder().append("@").append(status.getUser().getName())
+                .append(" ретвитнул: @").append(status.getRetweetedStatus().getUser().getName()).append(": ")
+                .append(status.getRetweetedStatus().getText()).toString());
         System.out.println();
     }
 
