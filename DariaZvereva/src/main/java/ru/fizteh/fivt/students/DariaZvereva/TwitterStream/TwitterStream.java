@@ -6,10 +6,7 @@ package ru.fizteh.fivt.students.DariaZvereva.TwitterStream;
 
 import com.beust.jcommander.JCommander;
 import twitter4j.*;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
+
 import java.util.List;
 
 public class TwitterStream {
@@ -42,46 +39,10 @@ public class TwitterStream {
     }
 
 
-    public static void printTime(Status tweet) {
-
-        Declenser timeDeclension = new Declenser();
-
-        long currentTimeToFormat = System.currentTimeMillis();
-        long tweetTimeToFormat = tweet.getCreatedAt().getTime();
-
-        LocalDateTime currentTime = new Date(currentTimeToFormat).toInstant()
-                .atZone(ZoneId.systemDefault()).toLocalDateTime();
-        LocalDateTime tweetTime = new Date(tweetTimeToFormat).toInstant()
-                .atZone(ZoneId.systemDefault()).toLocalDateTime();
-
-        System.out.print("[");
-        if (ChronoUnit.MINUTES.between(tweetTime, currentTime) <= 2) {
-            System.out.print("только что");
-        } else {
-            if (ChronoUnit.HOURS.between(tweetTime, currentTime) < 1) {
-                System.out.print(new StringBuilder().append(ChronoUnit.MINUTES.between(tweetTime, currentTime))
-                        .append(timeDeclension.MINUTES[timeDeclension.strForm(
-                                ChronoUnit.MINUTES.between(tweetTime, currentTime))])
-                        .append("назад").toString());
-            } else {
-                if (ChronoUnit.DAYS.between(tweetTime, currentTime) < 1) {
-                    System.out.print(new StringBuilder().append(ChronoUnit.HOURS.between(tweetTime, currentTime))
-                            .append(timeDeclension.HOURS[timeDeclension.strForm(
-                                    ChronoUnit.HOURS.between(tweetTime, currentTime))])
-                            .append("назад").toString());
-                } else {
-                    if (ChronoUnit.DAYS.between(tweetTime, currentTime) == 1) {
-                        System.out.print("вчера");
-                    } else {
-                        System.out.print(new StringBuilder().append(ChronoUnit.DAYS.between(tweetTime, currentTime))
-                                .append(timeDeclension.DAYS[timeDeclension.strForm(
-                                        ChronoUnit.DAYS.between(tweetTime, currentTime))])
-                                .append("назад").toString());
-                    }
-                }
-            }
-        }
-        System.out.print("]");
+    public static void printTime(Status status) {
+        TimePrinter printer = new TimePrinter();
+        System.out.print(new StringBuilder().append("[")
+                .append(printer.printTime(status.getCreatedAt().getTime(), System.currentTimeMillis())).append("]"));
     }
 
     public static void printRetweetsCount(Status status) {
