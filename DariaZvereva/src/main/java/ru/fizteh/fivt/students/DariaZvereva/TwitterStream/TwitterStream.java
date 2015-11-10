@@ -84,16 +84,18 @@ public class TwitterStream {
         System.out.print("]");
     }
 
-    public static void printTweet(Status status) {
+    public static void printRetweetsCount(Status status) {
         Declenser retweetDeclension = new Declenser();
-        System.out.println(new StringBuilder().append("@").append(status.getUser().getName()).append(": ")
-                .append(status.getText()).append(retweetDeclension.RETWEETS[retweetDeclension.strForm(
-                        status.getRetweetCount())]).toString());
-        System.out.println();
+        System.out.println(new StringBuilder().append("(").append(status.getRetweetCount())
+                .append(retweetDeclension.RETWEETS[retweetDeclension.strForm(status.getRetweetCount())]).toString());
+    }
+
+    public static void printTweet(Status status) {
+        System.out.print(new StringBuilder().append("@").append(status.getUser().getName()).append(": ")
+                .append(status.getText()));
     }
 
     public static void printRetweet(Status status) {
-        printTime(status);
         System.out.println(new StringBuilder().append("@").append(status.getUser().getName())
                 .append(" ретвитнул: @").append(status.getRetweetedStatus().getUser().getName()).append(": ")
                 .append(status.getRetweetedStatus().getText()).toString());
@@ -118,6 +120,7 @@ public class TwitterStream {
                 }
                 if (!status.isRetweet()) {
                     printTweet(status);
+                    System.out.println();
                 } else {
                     if (!settings.isRetweetsHidden()) {
                         printRetweet(status);
@@ -177,6 +180,8 @@ public class TwitterStream {
                 if (!tweet.isRetweet()) {
                     printTime(tweet);
                     printTweet(tweet);
+                    printRetweetsCount(tweet);
+                    System.out.println();
                 } else {
                     if (!settings.isRetweetsHidden()) {
                         printTime(tweet);

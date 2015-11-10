@@ -19,11 +19,11 @@ public class Declenser {
 
     public static int strForm(long number) {
         if (number % TEN == 1 && number % HUNDRED != ELEVEN) {
-            return 1;
+            return 0;
         }
         if (number % TEN > 1 && number % TEN < FIVE && (number % HUNDRED < FIVE || number % HUNDRED > FIFTEEN)) {
-            return 2;
+            return 1;
         }
-        return 3;
+        return 2;
     }
 }
