@@ -38,7 +38,6 @@ public class TwitterStream {
         }
     }
 
-
     public static void printTime(Status status) {
         TimePrinter printer = new TimePrinter();
         System.out.print(new StringBuilder().append("[")

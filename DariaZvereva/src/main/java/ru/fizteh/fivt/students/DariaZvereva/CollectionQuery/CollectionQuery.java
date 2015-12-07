@@ -1,7 +1,8 @@
-package ru.fizteh.fivt.students.akormushin.collectionquery;
-
-import ru.fizteh.fivt.students.akormushin.collectionquery.impl.Tuple;
-
+package ru.fizteh.fivt.students.DariaZvereva.CollectionQuery;
+/**
+ * Created by Dasha on 10.11.2015.
+ */
+/*
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -18,26 +19,24 @@ import static ru.fizteh.fivt.students.akormushin.collectionquery.impl.FromStmt.f
 
 /**
  * @author akormushin
- */
+ *//*
 public class CollectionQuery {
 
     /**
      * Make this code work!
      *
      * @param args
-     */
+     *//*
     public static void main(String[] args) {
         Iterable<Statistics> statistics =
                 from(list(
                         student("ivanov", LocalDate.parse("1986-08-06"), "494"),
-                        student("sidorov", LocalDate.parse("1986-08-06"), "495"),
-                        student("smith", LocalDate.parse("1986-08-06"), "495"),
-                        student("petrov", LocalDate.parse("2006-08-06"), "494")))
+                        student("ivanov", LocalDate.parse("1986-08-06"), "494")))
                         .select(Statistics.class, Student::getGroup, count(Student::getGroup), avg(Student::age))
                         .where(rlike(Student::getName, ".*ov").and(s -> s.age() > 20))
                         .groupBy(Student::getGroup)
                         .having(s -> s.getCount() > 0)
-                        .orderBy(asc(Statistics::getGroup), desc(Statistics::getCount))
+                        .orderBy(asc(Student::getGroup), desc(count(Student::getGroup)))
                         .limit(100)
                         .union()
                         .from(list(student("ivanov", LocalDate.parse("1985-08-06"), "494")))
@@ -47,10 +46,10 @@ public class CollectionQuery {
 
         Iterable<Tuple<String, String>> mentorsByStudent =
                 from(list(student("ivanov", LocalDate.parse("1985-08-06"), "494")))
-                .join(list(new Group("494", "mr.sidorov")))
-                .on((s, g) -> Objects.equals(s.getGroup(), g.getGroup()))
-                .select(sg -> sg.getFirst().getName(), sg -> sg.getSecond().getMentor())
-                .execute();
+                        .join(list(new Group("494", "mr.sidorov")))
+                        .on((s, g) -> Objects.equals(s.getGroup(), g.getGroup()))
+                        .select(sg -> sg.getFirst().getName(), sg -> sg.getSecond().getMentor())
+                        .execute();
         System.out.println(mentorsByStudent);
     }
 
@@ -142,4 +141,4 @@ public class CollectionQuery {
         }
     }
 
-}
+}*/

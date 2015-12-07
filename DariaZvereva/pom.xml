@@ -16,15 +16,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.8.2</version>
-      <scope>test</scope>
-    </dependency>
-
     <dependency>
       <groupId>org.twitter4j</groupId>
       <artifactId>twitter4j-stream</artifactId>
@@ -47,6 +39,11 @@
       <groupId>com.google.code.geocoder-java</groupId>
       <artifactId>geocoder-java</artifactId>
       <version>0.16</version>
+    </dependency>
+    <dependency>
+      <groupId>antlr</groupId>
+      <artifactId>antlr</artifactId>
+      <version>2.7.7</version>
     </dependency>
   </dependencies>
 
@@ -82,7 +79,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>ru.fizteh.fivt.students.DariaZvereva.TwitterStream.TwitterStream</mainClass>
+              <mainClass>ru.fizteh.fivt.students.DariaZvereva.TreadsRollCall.ThreadsRollCall</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
