@@ -9,11 +9,7 @@ import com.google.maps.model.Bounds;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 
 public class GoogleGeoLocation {
@@ -34,7 +30,7 @@ public class GoogleGeoLocation {
     }
 
     private String getKeyFromProperties() throws IOException {
-        Properties prop = new Properties();
+     /*   Properties prop = new Properties();
         try (InputStream input = new FileInputStream("twitter4j.properties")) {
             prop.load(input);
         } catch (FileNotFoundException e) {
@@ -44,7 +40,8 @@ public class GoogleGeoLocation {
             System.err.println("Can't read the file : " + e.getMessage());
             throw e;
         }
-        return prop.getProperty("googleApiKey");
+        return prop.getProperty("googleApiKey");*/
+        return "AIzaSyDHGzGunBKJbqECUT0raxB0d-r1pe5bKx8";
     }
 
     public LatLng getLocation() {
