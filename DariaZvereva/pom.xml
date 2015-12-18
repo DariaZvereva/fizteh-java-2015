@@ -45,6 +45,27 @@
       <artifactId>antlr</artifactId>
       <version>2.7.7</version>
     </dependency>
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy</artifactId>
+      <version>1.8.3</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>18.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.4.190</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -79,7 +100,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>ru.fizteh.fivt.students.DariaZvereva.TreadsRollCall.ThreadsRollCall</mainClass>
+              <mainClass>ru.fizteh.fivt.students.DariaZvereva.MiniORM.Test</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>

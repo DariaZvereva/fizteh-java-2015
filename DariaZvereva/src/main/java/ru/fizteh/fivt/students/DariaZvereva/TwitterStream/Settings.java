@@ -51,5 +51,26 @@ public class Settings {
         return query;
     }
 
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public void setRetweetsHidden(boolean flag) {
+        hideRetweets = flag;
+    }
+
+    public void setStream(boolean flag) {
+        this.stream = flag;
+    }
+
+    public void setLimit(Integer n) {
+        this.limit = n;
+    }
+
+    public void setPlace(String placeName) {
+        place = placeName;
+    }
+
 }
 
